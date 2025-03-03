@@ -135,15 +135,5 @@ runs:
         )
 
         # Send the Adaptive Card to Teams
-        curl -H "Content-Type: application/json" -d "$CARD_JSON" $TEAMS_WEBHOOK -o result.json
-
-    - name: read json, move to setp outpu
-      id: read_result_json
-      run: echo "echo result_json=$(cat result.json) >> $GITHUB_OUTPUT"
-      shell: bash
-
-    - name: force failure if json result has error
-      run: exit 1
-      if: fromJson(steps.read_result_json.result_json).error
-      shell: bash
+        curl --fail-with-body -H "Content-Type: application/json" -d "$CARD_JSON" $TEAMS_WEBHOOK
 
