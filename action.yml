@@ -140,8 +140,10 @@ runs:
     - name: read json, move to setp outpu
       id: read_result_json
       run: echo "::set-output name=result_json::$(cat workspaces.json)"
+      shell: bash
 
     - name: force failure if json result has error
       run: exit 1
       if: fromJson(steps.read_result_json.result_json).error
-      
+      shell: bash
+
