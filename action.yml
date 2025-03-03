@@ -139,7 +139,7 @@ runs:
 
     - name: read json, move to setp outpu
       id: read_result_json
-      run: echo "::set-output name=result_json::$(cat workspaces.json)"
+      run: echo "echo result_json=$(cat result.json) >> $GITHUB_OUTPUT"
       shell: bash
 
     - name: force failure if json result has error
