@@ -27,6 +27,7 @@ runs:
   steps:
     - name: teams-message
       shell: bash
+      id: teams_message_curl
       env:
         TEAMS_WEBHOOK: ${{ inputs.webhook }}
       run: |
@@ -134,4 +135,13 @@ runs:
         )
 
         # Send the Adaptive Card to Teams
-        curl -H "Content-Type: application/json" -d "$CARD_JSON" $TEAMS_WEBHOOK
+        curl -H "Content-Type: application/json" -d "$CARD_JSON" $TEAMS_WEBHOOK -o result.json
+
+    - name: read json, move to setp outpu
+      id: read_result_json
+      run: echo "::set-output name=result_json::$(cat workspaces.json)"
+
+    - name: force failure if json result has error
+      run: exit 1
+      if: fromJson(steps.read_result_json.result_json).error
+      
