@@ -136,7 +136,7 @@ runs:
         CURL_COMMAND="curl --fail-with-body"
         if [[ $(bash -c "$CURL_COMMAND"  2>&1 | grep unknown) ]]; then CURL_COMMAND="curl --fail"; fi
 
-        CURL_COMMAND="$CURL_COMMAND -H \"Content-Type: application/json\" --data-binary @- $TEAMS_WEBHOOK"
+        CURL_COMMAND="$CURL_COMMAND -H \"Content-Type: application/json\" --data-binary @- \"$TEAMS_WEBHOOK\""
 
         echo $CURL_COMMAND
 
