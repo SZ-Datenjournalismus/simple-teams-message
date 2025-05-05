@@ -133,7 +133,11 @@ runs:
         }
         EOF
         )
+        CURL_COMMAND="curl --fail-with-body"
+        if [[ $(bash -c "$CURL_COMMAND"  2>&1 | grep unknown) ]]; then CURL_COMMAND="curl --fail"; fi
+
+        CURL_COMMAND="$CURL_COMMAND -H \"Content-Type: application/json\" -d \"$CARD_JSON\" $TEAMS_WEBHOOK"
 
         # Send the Adaptive Card to Teams
-        curl --fail-with-body -H "Content-Type: application/json" -d "$CARD_JSON" $TEAMS_WEBHOOK
+        $(CURL_COMMAND)
 
