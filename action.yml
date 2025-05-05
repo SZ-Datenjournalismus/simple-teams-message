@@ -138,6 +138,8 @@ runs:
 
         CURL_COMMAND="$CURL_COMMAND -H \"Content-Type: application/json\" -d \"$CARD_JSON\" $TEAMS_WEBHOOK"
 
+        echo $CURL_COMMAND
+
         # Send the Adaptive Card to Teams
         $CURL_COMMAND
 
